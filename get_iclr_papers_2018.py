@@ -49,8 +49,8 @@ def get_papers_for_year(year, keywords):
         paper_details['abstract'].append(abstract)
         for kw in keywords:
             normalized_kw = '_'.join(kw.split())
-            paper_details[f'in_title_{normalized_kw}'].append(kw in title)
-            paper_details[f'in_abstract_{normalized_kw}'].append(kw in abstract)
+            paper_details[f'in_title_{normalized_kw}'].append(kw.lower() in title.lower())
+            paper_details[f'in_abstract_{normalized_kw}'].append(kw.lower() in abstract.lower())
     df = pd.DataFrame(paper_details)
     return df
 
