@@ -39,18 +39,19 @@ def get_papers_for_year(year, keywords):
     print('Getting paper details')
     papercards = soup.select('div.maincard')
     for card in tqdm(papercards):
-        title = card.select_one('div.maincardBody').text
-        paper_details['title'].append(title)
-        url = card.select_one('a.href_PDF')['href']
-        paper_details['url'].append(url)
-        authors = parse_authors(card.select_one('div.maincardFooter').text)
-        paper_details['authors'].append(authors)
-        abstract = get_abstract(url)
-        paper_details['abstract'].append(abstract)
-        for kw in keywords:
-            normalized_kw = '_'.join(kw.split())
-            paper_details[f'in_title_{normalized_kw}'].append(kw.lower() in title.lower())
-            paper_details[f'in_abstract_{normalized_kw}'].append(kw.lower() in abstract.lower())
+        try:
+            title = card.select_one('div.maincardBody').text
+            url = card.select_one('a.href_PDF')['href']
+            authors = parse_authors(card.select_one('div.maincardFooter').text)
+            abstract = get_abstract(url)
+            paper_details['title'].append(title)
+            paper_details['url'].append(url)
+            paper_details['authors'].append(authors)
+            paper_details['abstract'].append(abstract)
+        except Exception as e:
+            print("Failed getting details for")
+            print(card)
+            print(e)
     df = pd.DataFrame(paper_details)
     return df
 
