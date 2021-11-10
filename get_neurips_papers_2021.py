@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 
 
-YEAR = 2018
+YEAR = 2021
 DEFAULT_KWS = [
     'meta','learning to learn','reinforcement','RL','few-shot','imitation',
     'transfer','lifelong','continual','partial observability','POMDP',
@@ -62,4 +62,4 @@ def get_papers_for_year(year, keywords):
 
 
 df = get_papers_for_year(YEAR, DEFAULT_KWS)
-df.to_csv(f'iclr_{YEAR}.csv')
+df.to_csv(f'neurips_{YEAR}.csv')
